@@ -10,6 +10,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import javax.swing.JPanel;
 
@@ -55,14 +57,19 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		viewport = new Rectangle(x, y, x + resolutionHeight, y + resolutionWidth);
 		//
 
-		// draw map
+		// draw map (ground layers)
 		Map map = game.getMap();
+		Queue<MapLayer> aboveLayers = new LinkedList<MapLayer>();
 		for(int l = 0; l < map.nbOfLayers(); l++) {
-			for(int i = 0; i < nbOfVerticalTiles; i++) {
-				for(int j = 0; j < nbOfHorizontalTiles; j++) {
-					Tile tile = map.getLayer(l).getTile(iCorner + i, jCorner + j);
-					if(tile != null) { // the null tile corresponds to "no image" - 0 on map layer
-						g2d.drawImage(tile.getImage(), j * 32, i * 32, null);						
+			if(map.getLayer(l).isAbove()) {
+				aboveLayers.add(map.getLayer(l));
+			} else {
+				for(int i = 0; i < nbOfVerticalTiles; i++) {
+					for(int j = 0; j < nbOfHorizontalTiles; j++) {
+						Tile tile = map.getLayer(l).getTile(iCorner + i, jCorner + j);
+						if(!tile.isEmpty()) {
+							g2d.drawImage(tile.getImage(), j * 32, i * 32, null);						
+						}
 					}
 				}
 			}
@@ -79,6 +86,22 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			}
 		}
 		//
+
+		// draw map (above layers)
+		while(!aboveLayers.isEmpty()) {
+			MapLayer mapLayer = aboveLayers.poll();
+			for(int i = 0; i < nbOfVerticalTiles; i++) {
+				for(int j = 0; j < nbOfHorizontalTiles; j++) {
+					Tile tile = mapLayer.getTile(iCorner + i, jCorner + j);
+					if(!tile.isEmpty()) {
+						g2d.drawImage(tile.getImage(), j * 32, i * 32, null);						
+					}
+				}
+			}
+
+		}
+		//
+
 
 		// debug
 		Font font = new Font("Serif", Font.PLAIN, 20);

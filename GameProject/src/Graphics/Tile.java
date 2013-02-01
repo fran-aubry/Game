@@ -8,6 +8,8 @@ public class Tile {
 
 	private BufferedImage image;
 	private int passability;
+
+	public static Tile EMPTY_TILE = new Tile(null, PASSABLE);
 	
 	public Tile(BufferedImage image, int passability) {
 		this.image = image;
@@ -20,6 +22,10 @@ public class Tile {
 
 	public int getPassability() {
 		return passability;
+	}
+	
+	public boolean isEmpty() {
+		return image == null;
 	}
 	
 }

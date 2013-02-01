@@ -21,11 +21,20 @@ public class Map {
 	
 	private MapLayer[] mapLayers;
 	private int height, width;
+	private int[][] passabilityMap;
 	
 	public Map(MapLayer[] mapLayers) {
 		this.mapLayers = mapLayers;
 		this.height = mapLayers[0].getHeight();
 		this.width = mapLayers[0].getWidth();
+		this.passabilityMap = new int[height][width];
+		for(int i = 0; i < height; i++) {
+			for(int j = 0; j < width; j++) {
+				for(int l = 0; l < mapLayers.length; l++) {
+					passabilityMap[i][j] = Math.max(passabilityMap[i][j], mapLayers[l].getTile(i, j).getPassability());
+				}
+			}
+		}
 	}
 	
 	public int getHeight() {
@@ -75,13 +84,7 @@ public class Map {
 				int i = K.getI() + current.getI();
 				int j = K.getJ() + current.getJ();
 				if(0 <= i && i < height && 0 <= j && j < width && distance[i][j] == null) {
-					boolean isPassable = true;
-					for(int l = 0; isPassable && l < mapLayers.length; l++) {
-						if(mapLayers[l].getTile(i, j) != null && mapLayers[l].getTile(i, j).getPassability() == Tile.OBSTACLE) {
-							isPassable = false;
-						}
-					}
-					if(isPassable) {
+					if(passabilityMap[i][j] == Tile.PASSABLE) {
 						distance[i][j] = 1 + distance[current.getI()][current.getJ()];
 						parent[i][j] = current;
 						Q.add(new Index(i, j));

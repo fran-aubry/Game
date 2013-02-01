@@ -5,12 +5,16 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.Scanner;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 public class MainClass{
   public static void main(String[] args) {
+	  Scanner reader = new Scanner(System.in);
+	  boolean b = reader.nextBoolean();
+	  System.out.println(b);
     JFrame jf = new JFrame("Demo");
     Container cp = jf.getContentPane();
     MyCanvas tl = new MyCanvas();
