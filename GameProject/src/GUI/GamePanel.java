@@ -77,7 +77,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		Font font = new Font("Serif", Font.PLAIN, 20);
 		g2d.setColor(Color.BLACK);
 		g2d.setFont(font);
-		g2d.drawString("use WASD to scroll the map", 20, 20);
+		g2d.drawString("use arrows to scroll the map", 20, 20);
 		//
 	}
 
