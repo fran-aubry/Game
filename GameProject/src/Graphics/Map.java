@@ -6,9 +6,8 @@ import java.util.Queue;
 import Geometry.Index;
 import Geometry.Point;
 
-
 public class Map {
-	
+
 	private final Index[] adjacent = new Index[] {
 			new Index(1, 0), 
 			new Index(-1, 0), 
@@ -19,31 +18,32 @@ public class Map {
 			new Index(1, -1),
 			new Index(-1, 1)
 	};
-
-	private Tile[] tileset;
-	private int[][] tiles;
+	
+	private MapLayer[] mapLayers;
 	private int height, width;
 	
-	public Map(Tile[] tileset, int[][] tiles) {
-		this.tileset = tileset;
-		this.tiles = tiles;
-		this.height = tiles.length;
-		this.width = tiles[0].length;
-	}
-	
-	
-	public Tile getTile(int i, int j) {
-		return tileset[tiles[i][j]];
+	public Map(MapLayer[] mapLayers) {
+		this.mapLayers = mapLayers;
+		this.height = mapLayers[0].getHeight();
+		this.width = mapLayers[0].getWidth();
 	}
 	
 	public int getHeight() {
-		return tiles.length;
+		return height;
 	}
 	
 	public int getWidth() {
-		return tiles[0].length;
+		return width;
 	}
 	
+	public int nbOfLayers() {
+		return mapLayers.length;
+	}
+	
+	public MapLayer getLayer(int i) {
+		return mapLayers[i];
+	}
+
 	public Index getCorrespondingIndex(Point P) {
 		return new Index(P.getY() / 32, P.getX() / 32);
 	}
@@ -75,7 +75,13 @@ public class Map {
 				int i = K.getI() + current.getI();
 				int j = K.getJ() + current.getJ();
 				if(0 <= i && i < height && 0 <= j && j < width && distance[i][j] == null) {
-					if(tileset[tiles[i][j]].getPassability() != Tile.OBSTACLE) {
+					boolean isPassable = true;
+					for(int l = 0; isPassable && l < mapLayers.length; l++) {
+						if(mapLayers[l].getTile(i, j) != null && mapLayers[l].getTile(i, j).getPassability() == Tile.OBSTACLE) {
+							isPassable = false;
+						}
+					}
+					if(isPassable) {
 						distance[i][j] = 1 + distance[current.getI()][current.getJ()];
 						parent[i][j] = current;
 						Q.add(new Index(i, j));

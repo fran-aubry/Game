@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 import GameObjects.State;
 import Graphics.Animation;
 import Graphics.Map;
+import Graphics.MapLayer;
 import Graphics.Sprite;
 import Graphics.Tile;
 
@@ -54,14 +55,30 @@ public class DataReader {
 		}
 		return new Animation(frames, timePerFrame);
 	}
-
+	
 	public static Map readMap(String filename) {
-		int[][] tiles = null;
-		Tile[] tileset = null;
+		Map map = null;
 		try {
 			Scanner reader = new Scanner(new FileReader("Maps/" + filename));
 			int height = reader.nextInt();
 			int width = reader.nextInt();
+			int nbOfLayers = reader.nextInt();
+			MapLayer[] mapLayers = new MapLayer[nbOfLayers];
+			for(int i = 0; i < nbOfLayers; i++) {
+				mapLayers[i] = readMapLayer(reader.next(), height, width);
+			}
+			map = new Map(mapLayers);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+
+	public static MapLayer readMapLayer(String filename, int height, int width) {
+		int[][] tiles = null;
+		Tile[] tileset = null;
+		try {
+			Scanner reader = new Scanner(new FileReader("Maps/" + filename));
 			String tilesetFilename = reader.next();
 			tileset = readTileset(tilesetFilename);
 			tiles = new int[height][width];
@@ -73,7 +90,7 @@ public class DataReader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return new Map(tileset, tiles);
+		return new MapLayer(tileset, tiles);
 	}
 	
 	public static Tile[] readTileset(String filename) {
@@ -81,11 +98,11 @@ public class DataReader {
 		try {
 			Scanner reader = new Scanner(new FileReader("Tilesets/" + filename));
 			int size = reader.nextInt();
-			tileset = new Tile[size];
+			tileset = new Tile[size + 1];
 			for(int i = 0; i < size; i++) {
 				String imageFilename = reader.next();
 				int passability = reader.nextInt();
-				tileset[i] = new Tile(ImageIO.read(new File("Images/" + imageFilename)), passability);
+				tileset[i + 1] = new Tile(ImageIO.read(new File("Images/" + imageFilename)), passability);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

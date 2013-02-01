@@ -18,6 +18,8 @@ import GameObjects.DrawableObject;
 import GameObjects.GameObject;
 import Geometry.Rectangle;
 import Graphics.Map;
+import Graphics.MapLayer;
+import Graphics.Tile;
 import Main.Game;
 
 public class GamePanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
@@ -47,7 +49,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		
+
 		// compute current viewport
 		int x = jCorner * 32, y = iCorner * 32;
 		viewport = new Rectangle(x, y, x + resolutionHeight, y + resolutionWidth);
@@ -55,9 +57,14 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
 		// draw map
 		Map map = game.getMap();
-		for(int i = 0; i < nbOfVerticalTiles; i++) {
-			for(int j = 0; j < nbOfHorizontalTiles; j++) {
-				g2d.drawImage(map.getTile(iCorner + i, jCorner + j).getImage(), j * 32, i * 32, null);
+		for(int l = 0; l < map.nbOfLayers(); l++) {
+			for(int i = 0; i < nbOfVerticalTiles; i++) {
+				for(int j = 0; j < nbOfHorizontalTiles; j++) {
+					Tile tile = map.getLayer(l).getTile(iCorner + i, jCorner + j);
+					if(tile != null) { // the null tile corresponds to "no image" - 0 on map layer
+						g2d.drawImage(tile.getImage(), j * 32, i * 32, null);						
+					}
+				}
 			}
 		}
 		//

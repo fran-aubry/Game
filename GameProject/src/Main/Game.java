@@ -16,6 +16,7 @@ import GameObjects.SampleSpritedObject;
 import Geometry.Index;
 import Geometry.Point;
 import Graphics.Map;
+import Graphics.MapLayer;
 import IO.DataReader;
 
 
