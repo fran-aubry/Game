@@ -41,6 +41,8 @@ public class Game {
 		// Load map and game objects
 		map = DataReader.readMap("sample_map");
 		gameObjects = new LinkedList<GameObject>();
+		/*
+		
 		gameObjects.add(new SampleSpritedObject(0, 0));
 		SampleSpritedMovableObject sample1 = new SampleSpritedMovableObject(64, 64);
 		sample1.addAction(new Move(sample1.getX(), sample1.getY(), sample1.getX() + 32 * 8, sample1.getY()));
@@ -48,14 +50,13 @@ public class Game {
 		sample2.addAction(new Move(sample2.getX(), sample2.getY(), sample2.getX() + 32 * 8, sample2.getY() + 32 * 8));
 		gameObjects.add(sample1);
 		gameObjects.add(sample2);
-		
-		SampleSpritedMovableObject sample3 = new SampleSpritedMovableObject(96, 96);
-		LinkedList<Action> actions = Move.buildMovementFromPath(map.shortestPath(sample2.getPoint(), new Point(254, 496)));
-		for(Action action : actions) {
+		 */
+		SampleSpritedMovableObject sample3 = new SampleSpritedMovableObject(160, 160);
+		LinkedList<Action> actions1 = Move.buildMovementFromPath(map.shortestPath(sample3.getPoint(), new Point(224, 448)));
+		for(Action action : actions1) {
 			sample3.addAction(action);
 		}
 		gameObjects.add(sample3);
-
 		//
 
 		// Initialize window
