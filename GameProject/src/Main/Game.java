@@ -35,7 +35,6 @@ public class Game {
 	private static LinkedList<GameObject> gameObjects;
 	private static GamePanel gamePanel;
 	private static Map map;
-	private static GameObject player;
 	
 	public Game() {
 		// Load map and game objects
@@ -55,9 +54,7 @@ public class Game {
 			sample3.addAction(action);
 		}
 		gameObjects.add(sample3);
-		
-		player = new SampleSpritedMovableObject(512, 512);
-		gameObjects.add(player);
+
 		//
 
 		// Initialize window
@@ -80,10 +77,6 @@ public class Game {
 	
 	public Map getMap() {
 		return map;
-	}
-	
-	public GameObject getPlayer() {
-		return player;
 	}
 
 

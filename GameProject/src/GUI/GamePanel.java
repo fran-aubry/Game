@@ -83,7 +83,6 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
 	@Override
 	public void keyPressed(KeyEvent ke) {
-		
 		switch(ke.getKeyCode()) {
 		case KeyEvent.VK_UP: // scroll up
 			iCorner = Math.max(iCorner - 1, 0);
@@ -100,22 +99,6 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			if(jCorner + nbOfHorizontalTiles < game.getMap().getWidth()) {
 				jCorner++;
 			}
-			break;
-		}
-		
-		GameObject player = game.getPlayer();
-		switch(ke.getKeyChar()) {
-		case 'w': // move up
-			game.getPlayer().addAction(new Move(player.getX(), player.getY(), player.getX(), player.getY() - 32));
-			break;
-		case 'a': // move left
-			game.getPlayer().addAction(new Move(player.getX(), player.getY(), player.getX() - 32, player.getY()));
-			break;
-		case 's': // move down
-			game.getPlayer().addAction(new Move(player.getX(), player.getY(), player.getX(), player.getY() + 32));
-			break;
-		case 'd': // move right
-			game.getPlayer().addAction(new Move(player.getX(), player.getY(), player.getX() + 32, player.getY()));
 			break;
 		}
 	}
