@@ -1,6 +1,10 @@
-5
+9
 PERFORMING_ACTION moving_down
 MOVE_DOWN moving_down
 MOVE_UP moving_up
 MOVE_LEFT moving_left
 MOVE_RIGHT moving_right
+STOPPED_UP stopped_up
+STOPPED_DOWN stopped_down
+STOPPED_LEFT stopped_left
+STOPPED_RIGHT stopped_right

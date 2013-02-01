@@ -36,6 +36,10 @@ public abstract class GameObject {
 		this.state = state;
 	}
 	
+	public State getState() {
+		return state;
+	}
+	
 	public void setPosition(Point position) {
 		this.x = position.getX();
 		this.y = position.getY();

@@ -46,9 +46,9 @@ public class Move implements Action {
 	public static LinkedList<Action> buildMovementFromPath(LinkedList<Point> path) {
 		LinkedList<Action>  actions = new LinkedList<Action>();
 		Point previous = path.removeFirst();
+		Point next = null;
 		while(!path.isEmpty()) {
-			Point next = path.getFirst();
-			
+			next = path.getFirst();
 			// dx < 0 => look left; dx > 0 => look right
 			int dx = next.getX() - previous.getX();
 			// dy < 0 => look up; dy > 0 => look down
@@ -85,6 +85,8 @@ public class Move implements Action {
 			actions.add(new Move(previous, next));
 			previous = path.removeFirst();
 		}
+		
+		actions.add(new StopMovement());
 		return actions;
 	}
 	
