@@ -41,6 +41,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		super(true);
 		this.drawGrid = drawGrid;
 		this.game = game;
+		setBackground(new Color(134, 208, 211));
 		iCorner = 0;
 		jCorner= 0;
 		nbOfHorizontalTiles = resolutionWidth / 32;
@@ -106,6 +107,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			for(int i = 0; i < resolutionWidth; i += 32) {
 				g2d.drawLine(i, 0, i, resolutionHeight);
 			}
+			g2d.drawRect(11 - x, 11 - y, 10, 10);
 		}
 		//
 		
@@ -113,7 +115,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		Font font = new Font("Serif", Font.PLAIN, 20);
 		g2d.setColor(Color.BLACK);
 		g2d.setFont(font);
-		g2d.drawString("use arrows to scroll the map", 20, 20);
+		g2d.drawString("use arrows to scroll the map", 50, 20);
 		//
 		
 	}

@@ -77,11 +77,9 @@ public class DataReader {
 	public static MapLayer readMapLayer(String filename, int height, int width) {
 		int[][] tiles = null;
 		Tile[] tileset = null;
-		boolean isAbove = false;
 		try {
 			Scanner reader = new Scanner(new FileReader("Maps/" + filename));
 			String tilesetFilename = reader.next();
-			isAbove = reader.nextBoolean();
 			tileset = readTileset(tilesetFilename);
 			tiles = new int[height][width];
 			for(int i = 0; i < height; i++) {
@@ -92,7 +90,7 @@ public class DataReader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return new MapLayer(tileset, tiles, isAbove);
+		return new MapLayer(tileset, tiles);
 	}
 	
 	public static Tile[] readTileset(String filename) {

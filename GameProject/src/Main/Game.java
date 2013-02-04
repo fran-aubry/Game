@@ -22,42 +22,13 @@ import IO.DataReader;
 
 public class Game {
 
-	public static void main(String[] args) throws InterruptedException {
-		new Game();
-		while(true) {
-			Thread.sleep(10);
-			for(GameObject go : gameObjects) {
-				go.performAction();
-			}
-			gamePanel.repaint();
-		}
-	}
-
-	private static LinkedList<GameObject> gameObjects;
-	private static GamePanel gamePanel;
-	private static Map map;
+	private LinkedList<GameObject> gameObjects;
+	private GamePanel gamePanel;
+	private Map map;
 	
-	public Game() {
-		// Load map and game objects
-		map = DataReader.readMap("sample_map");
-		gameObjects = new LinkedList<GameObject>();
-		/*
-		
-		gameObjects.add(new SampleSpritedObject(0, 0));
-		SampleSpritedMovableObject sample1 = new SampleSpritedMovableObject(64, 64);
-		sample1.addAction(new Move(sample1.getX(), sample1.getY(), sample1.getX() + 32 * 8, sample1.getY()));
-		SampleSpritedMovableObject sample2 = new SampleSpritedMovableObject(64, 64);
-		sample2.addAction(new Move(sample2.getX(), sample2.getY(), sample2.getX() + 32 * 8, sample2.getY() + 32 * 8));
-		gameObjects.add(sample1);
-		gameObjects.add(sample2);
-		 */
-		SampleSpritedMovableObject sample3 = new SampleSpritedMovableObject(160, 160);
-		LinkedList<Action> actions1 = Move.buildMovementFromPath(map.shortestPath(sample3.getPoint(), new Point(224, 448)));
-		for(Action action : actions1) {
-			sample3.addAction(action);
-		}
-		gameObjects.add(sample3);
-		//
+	public Game(LinkedList<GameObject> gameObjects, Map map) {
+		this.gameObjects = gameObjects;
+		this.map = map;
 
 		// Initialize window
 		JFrame window = new JFrame();
@@ -73,6 +44,10 @@ public class Game {
 		//
 	}
 
+	public GamePanel getGamePanel() {
+		return gamePanel;
+	}
+	
 	public LinkedList<GameObject> getGameObjects() {
 		return gameObjects;
 	}

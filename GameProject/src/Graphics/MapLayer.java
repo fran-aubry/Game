@@ -4,17 +4,17 @@ public class MapLayer {
 
 	private Tile[] tileset;
 	private int[][] tiles;
-	private boolean isAbove;
 	
-	public MapLayer(Tile[] tileset, int[][] tiles, boolean isAbove) {
+	public MapLayer(Tile[] tileset, int[][] tiles) {
 		this.tileset = tileset;
 		this.tileset[0] = Tile.EMPTY_TILE;
 		this.tiles = tiles;
-		this.isAbove = isAbove;
 	}
 	
-	public boolean isAbove() {
-		return isAbove;
+	public MapLayer(int height, int width) {
+		tileset = new Tile[1];
+		tileset[0] = Tile.EMPTY_TILE;
+		tiles = new int[height][width];
 	}
 	
 	public Tile getTile(int i, int j) {
