@@ -59,21 +59,17 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
 		// draw map (ground layers)
 		Map map = game.getMap();
-		Queue<MapLayer> aboveLayers = new LinkedList<MapLayer>();
 		for(int l = 0; l < map.nbOfLayers(); l++) {
-			if(map.getLayer(l).isAbove()) {
-				aboveLayers.add(map.getLayer(l));
-			} else {
-				for(int i = 0; i < nbOfVerticalTiles; i++) {
-					for(int j = 0; j < nbOfHorizontalTiles; j++) {
-						Tile tile = map.getLayer(l).getTile(iCorner + i, jCorner + j);
-						if(!tile.isEmpty()) {
-							g2d.drawImage(tile.getImage(), j * 32, i * 32, null);						
-						}
+			for(int i = 0; i < nbOfVerticalTiles; i++) {
+				for(int j = 0; j < nbOfHorizontalTiles; j++) {
+					Tile tile = map.getLayer(l).getTile(iCorner + i, jCorner + j);
+					if(tile.getGroundImage() != null) {
+						g2d.drawImage(tile.getGroundImage(), j * 32, i * 32 + tile.getCut(), null);						
 					}
 				}
 			}
 		}
+
 		//
 
 		// draw game objects
@@ -88,17 +84,16 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		//
 
 		// draw map (above layers)
-		while(!aboveLayers.isEmpty()) {
-			MapLayer mapLayer = aboveLayers.poll();
+		for(int l = 0; l < map.nbOfLayers(); l++) {
 			for(int i = 0; i < nbOfVerticalTiles; i++) {
 				for(int j = 0; j < nbOfHorizontalTiles; j++) {
-					Tile tile = mapLayer.getTile(iCorner + i, jCorner + j);
-					if(!tile.isEmpty()) {
-						g2d.drawImage(tile.getImage(), j * 32, i * 32, null);						
+					Tile tile = map.getLayer(l).getTile(iCorner + i, jCorner + j);
+					if(tile.getSkyImage() != null) {
+						g2d.drawImage(tile.getSkyImage(), j * 32, i * 32, null);
+						System.out.println(i + " " + j);
 					}
 				}
 			}
-
 		}
 		//
 

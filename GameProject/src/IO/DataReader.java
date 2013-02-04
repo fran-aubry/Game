@@ -104,7 +104,8 @@ public class DataReader {
 			for(int i = 0; i < size; i++) {
 				String imageFilename = reader.next();
 				int passability = reader.nextInt();
-				tileset[i + 1] = new Tile(ImageIO.read(new File("Images/" + imageFilename)), passability);
+				int cut = reader.nextInt();
+				tileset[i + 1] = new Tile(ImageIO.read(new File("Images/" + imageFilename)), passability, cut);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
