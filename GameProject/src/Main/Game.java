@@ -64,7 +64,7 @@ public class Game {
 		window.setUndecorated(true);
 		window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gamePanel = new GamePanel(this);
+		gamePanel = new GamePanel(this, true);
 		window.add(gamePanel);
 		window.addKeyListener(gamePanel);
 		window.addMouseListener(gamePanel);

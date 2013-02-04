@@ -30,15 +30,16 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
 	private static final int resolutionWidth = 1280;
 	private static final int resolutionHeight = 1024;
-
-
+	
 	private Game game;
 	private int iCorner, jCorner; // coordinates of the first tile to draw
 	private int nbOfHorizontalTiles, nbOfVerticalTiles;
 	private Rectangle viewport;
+	private boolean drawGrid;
 
-	public GamePanel(Game game) {
+	public GamePanel(Game game, boolean drawGrid) {
 		super(true);
+		this.drawGrid = drawGrid;
 		this.game = game;
 		iCorner = 0;
 		jCorner= 0;
@@ -90,20 +91,31 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 					Tile tile = map.getLayer(l).getTile(iCorner + i, jCorner + j);
 					if(tile.getSkyImage() != null) {
 						g2d.drawImage(tile.getSkyImage(), j * 32, i * 32, null);
-						System.out.println(i + " " + j);
 					}
 				}
 			}
 		}
 		//
 
-
+		// draw grid
+		if(drawGrid) {
+			g2d.setColor(Color.black);
+			for(int i = 0; i < resolutionHeight; i += 32) {
+				g2d.drawLine(0, i, resolutionWidth, i);
+			}
+			for(int i = 0; i < resolutionWidth; i += 32) {
+				g2d.drawLine(i, 0, i, resolutionHeight);
+			}
+		}
+		//
+		
 		// debug
 		Font font = new Font("Serif", Font.PLAIN, 20);
 		g2d.setColor(Color.BLACK);
 		g2d.setFont(font);
 		g2d.drawString("use arrows to scroll the map", 20, 20);
 		//
+		
 	}
 
 	@Override

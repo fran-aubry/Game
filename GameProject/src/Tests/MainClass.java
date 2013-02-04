@@ -12,15 +12,19 @@ import javax.swing.JFrame;
 
 public class MainClass{
   public static void main(String[] args) {
-	  Scanner reader = new Scanner(System.in);
-	  boolean b = reader.nextBoolean();
-	  System.out.println(b);
     JFrame jf = new JFrame("Demo");
     Container cp = jf.getContentPane();
     MyCanvas tl = new MyCanvas();
     cp.add(tl);
     jf.setSize(300, 200);
     jf.setVisible(true);
+    
+    JFrame jf2 = new JFrame("Demo");
+    Container cp2 = jf.getContentPane();
+    MyCanvas tl2 = new MyCanvas();
+    cp2.add(tl2);
+    jf2.setSize(300, 200);
+    jf2.setVisible(true);
   }
 }
 
