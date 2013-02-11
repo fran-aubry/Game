@@ -7,7 +7,6 @@ public class MapLayer {
 	
 	public MapLayer(Tile[] tileset, int[][] tiles) {
 		this.tileset = tileset;
-		this.tileset[0] = Tile.EMPTY_TILE;
 		this.tiles = tiles;
 	}
 	

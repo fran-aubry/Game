@@ -99,6 +99,7 @@ public class DataReader {
 			Scanner reader = new Scanner(new FileReader("Tilesets/" + filename));
 			int size = reader.nextInt();
 			tileset = new Tile[size + 1];
+			tileset[0] = Tile.EMPTY_TILE;
 			for(int i = 0; i < size; i++) {
 				String imageFilename = reader.next();
 				int passability = reader.nextInt();

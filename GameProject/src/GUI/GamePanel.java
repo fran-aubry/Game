@@ -41,11 +41,11 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		super(true);
 		this.drawGrid = drawGrid;
 		this.game = game;
-		setBackground(new Color(134, 208, 211));
+		//setBackground(new Color(134, 208, 211));
 		iCorner = 0;
 		jCorner= 0;
-		nbOfHorizontalTiles = resolutionWidth / 32;
-		nbOfVerticalTiles = resolutionHeight / 32;
+		nbOfHorizontalTiles = Math.min(resolutionWidth / 32, game.getMap().getWidth());
+		nbOfVerticalTiles = Math.min(resolutionHeight / 32, game.getMap().getHeight());
 		viewport = new Rectangle(0, 0, resolutionHeight, resolutionWidth);
 	}
 
@@ -56,8 +56,10 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
 		// compute current viewport
 		int x = jCorner * 32, y = iCorner * 32;
-		viewport = new Rectangle(x, y, x + resolutionHeight, y + resolutionWidth);
+		viewport = new Rectangle(x, y, x + resolutionWidth, y + resolutionHeight);
 		//
+		g2d.setColor(new Color(134, 208, 211));
+		g2d.fillRect(x, y, 32 * nbOfHorizontalTiles, 32 * nbOfVerticalTiles);
 
 		// draw map (ground layers)
 		Map map = game.getMap();
@@ -101,11 +103,13 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		// draw grid
 		if(drawGrid) {
 			g2d.setColor(Color.black);
-			for(int i = 0; i < resolutionHeight; i += 32) {
-				g2d.drawLine(0, i, resolutionWidth, i);
+			// draw horizontal lines
+			for(int i = 0; i <= nbOfVerticalTiles; i++) {
+				g2d.drawLine(0, i * 32, 32 * nbOfHorizontalTiles, i * 32);
 			}
-			for(int i = 0; i < resolutionWidth; i += 32) {
-				g2d.drawLine(i, 0, i, resolutionHeight);
+			// draw vertical lines
+			for(int i = 0; i <= nbOfHorizontalTiles; i++) {
+				g2d.drawLine(i * 32, 0, i * 32, 32 * nbOfVerticalTiles);
 			}
 			g2d.drawRect(11 - x, 11 - y, 10, 10);
 		}

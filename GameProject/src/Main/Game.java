@@ -1,6 +1,7 @@
 package Main;
 
 
+import java.awt.event.MouseListener;
 import java.util.LinkedList;
 
 import javax.swing.JFrame;
@@ -26,7 +27,7 @@ public class Game {
 	private GamePanel gamePanel;
 	private Map map;
 	
-	public Game(LinkedList<GameObject> gameObjects, Map map) {
+	public Game(LinkedList<GameObject> gameObjects, Map map, MouseListener mouseListener) {
 		this.gameObjects = gameObjects;
 		this.map = map;
 
@@ -38,7 +39,7 @@ public class Game {
 		gamePanel = new GamePanel(this, true);
 		window.add(gamePanel);
 		window.addKeyListener(gamePanel);
-		window.addMouseListener(gamePanel);
+		window.addMouseListener(mouseListener);
 		window.setFocusable(true);
 		window.setVisible(true);
 		//

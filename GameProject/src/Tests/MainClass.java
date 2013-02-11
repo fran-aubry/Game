@@ -10,32 +10,24 @@ import java.util.Scanner;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
-public class MainClass{
-  public static void main(String[] args) {
-    JFrame jf = new JFrame("Demo");
-    Container cp = jf.getContentPane();
-    MyCanvas tl = new MyCanvas();
-    cp.add(tl);
-    jf.setSize(300, 200);
-    jf.setVisible(true);
-    
-    JFrame jf2 = new JFrame("Demo");
-    Container cp2 = jf.getContentPane();
-    MyCanvas tl2 = new MyCanvas();
-    cp2.add(tl2);
-    jf2.setSize(300, 200);
-    jf2.setVisible(true);
-  }
-}
+import java.awt.*;  
+import javax.swing.*; 
 
-class MyCanvas extends JComponent {
-  public void paint(Graphics g) {
-    Graphics2D g2 = (Graphics2D)g;
-    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-        RenderingHints.VALUE_ANTIALIAS_ON);
-    Font font = new Font("Serif", Font.PLAIN, 96);
-    g2.setFont(font);
-
-    g2.drawString("jade", 40, 120); 
-  }
+public class MainClass {
+ public static void main(String[] args){  
+   
+   JFrame jf = new JFrame();
+   jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+   jf.setSize(50,50);
+   jf.setVisible(true);
+   Dimension size = jf.getSize();
+   System.out.println(size); 
+   Insets insets = jf.getInsets();
+   int insetwidth = insets.left + insets.right;
+   int insetheight = insets.top + insets.bottom;
+   System.out.println("Insets left and right = " + insetwidth);
+   System.out.println("Insets top and bottom = " + insetheight); 
+   jf.setSize((int)size.getWidth() + insetwidth,(int)size.getHeight() + insetheight); 
+   System.out.println(jf.getSize());
+ }
 }

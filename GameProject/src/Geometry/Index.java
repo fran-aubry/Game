@@ -13,5 +13,13 @@ public class Index extends Point {
 	public int getJ() {
 		return y;
 	}
+	
+	public void setI(int i) {
+		this.x = i;
+	}
+	
+	public void setJ(int j) {
+		this.y = j;
+	}
 
 }

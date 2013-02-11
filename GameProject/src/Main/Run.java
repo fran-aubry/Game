@@ -9,6 +9,7 @@ import GameObjects.SampleSpritedMovableObject;
 import Geometry.Point;
 import Graphics.Map;
 import IO.DataReader;
+import Listeners.GameML;
 
 public class Run {
 
@@ -34,7 +35,7 @@ public class Run {
 		gameObjects.add(sample3);
 		//
 
-		Game game = new Game(gameObjects, map);
+		Game game = new Game(gameObjects, map, new GameML());
 		// Game loop
 		while(true) {
 			Thread.sleep(10);
